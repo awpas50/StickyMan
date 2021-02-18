@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - FortressSlot
+  - Enemy
+  - FortressObject
+  - PlayerFortress
   layers:
   - Default
   - TransparentFX
@@ -18,9 +21,9 @@ TagManager:
   - FortressObject
   - Bullet
   - Enemy
-  - 
-  - 
-  - 
+  - EnemyBullet
+  - FortressSlot
+  - FriendlyBullet
   - 
   - 
   - 

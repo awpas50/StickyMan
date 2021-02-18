@@ -10,8 +10,10 @@ public class EnemyPath : MonoBehaviour
     [HideInInspector] public Transform target;
     public int index = 0;
     public float speed;
+    [HideInInspector] public float speed_original;
     void Awake()
     {
+        speed_original = speed;
         listSize = path.transform.childCount;
         for (int i = 0; i < listSize; i++)
         {
@@ -28,7 +30,7 @@ public class EnemyPath : MonoBehaviour
         if(Vector3.Distance(target.transform.position, transform.position) <= 0.1f)
         {
             // reached the end
-            if(index >= pathToFollow.Count - 1)
+            if(index > pathToFollow.Count - 1)
             {
                 Destroy(gameObject);
             }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStat : MonoBehaviour
 {
+    public int HP = 20;
     public int carriedObject;
     private GameObject[] allFortressSlot;
 

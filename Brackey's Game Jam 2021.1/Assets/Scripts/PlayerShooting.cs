@@ -27,10 +27,13 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        GameObject b = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
+        Vector2 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+        GameObject b = Instantiate(bullet, firePoint.transform.position, Quaternion.identity);
         Rigidbody2D rb = b.GetComponent<Rigidbody2D>();
+        rb.velocity = dir * bulletSpeed;
+        b.transform.Rotate(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
         // Impulse = instant force
-        rb.AddForce(firePoint.transform.up * bulletSpeed, ForceMode2D.Impulse);
+        //rb.AddForce(firePoint.transform.up * bulletSpeed, ForceMode2D.Impulse);
     }
 
     void ResetCooldown()

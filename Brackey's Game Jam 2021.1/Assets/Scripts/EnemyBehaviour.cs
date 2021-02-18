@@ -4,43 +4,171 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    public int state = 0;
+    private EnemyPath enemyPath;
+    public GameObject[] enemyList;
     public GameObject attackTarget;
-    public Transform lastKnownPosition;
-    public float range;
+    private GameObject player;
+    private Transform lastKnownPosition;
+    public GameObject enemyBullet_hostile;
+    public GameObject enemyBullet_friendly;
 
+    public float bulletSpeed_initial = 5;
+    private float bulletSpeed;
+    public float range_initial = 10;
+    private float range;
 
+    public int damage_hostileMode = 2;
+    public int damage_allyMode = 2;
     private float t = 0;
-    private float cd = 0.3f;
+    private float t2 = 0;
+    public float cd_initial = 1f; // update target position every X sec
+    private float cd; 
+    private float cd_updateEnemyTarget = 0.06f;
+
     void Start()
     {
-        attackTarget = GameObject.FindGameObjectWithTag("Player");
+        cd = cd_initial;
+        range = range_initial;
+        bulletSpeed = bulletSpeed_initial;
+        enemyPath = GetComponent<EnemyPath>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        attackTarget = player;
     }
 
-    void UpdateTarget_Close()
+    void AttackPlayer()
     {
-        if(t >= cd)
+        if(t >= cd && Vector3.Distance(attackTarget.transform.position, transform.position) <= range)
         {
             lastKnownPosition = attackTarget.transform;
+
+            Vector2 dir = (lastKnownPosition.transform.position - transform.position).normalized;
+            GameObject b = Instantiate(enemyBullet_hostile, transform.position, Quaternion.identity);
+            Rigidbody2D rb = b.GetComponent<Rigidbody2D>();
+            rb.velocity = dir * bulletSpeed;
+            b.transform.Rotate(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+
             t = 0;
         }
     }
 
-    void AimAtTarget()
+    void AttackEnemies()
     {
-        //Vector3 dir = target.position - transform.position;
-        //Quaternion lookRotation = Quaternion.LookRotation(dir);
-        //Quaternion.LookRoation: instance lock a new target
-        //Quaternion.Lerp: lock a target (from A to B) with a speed
-        //Therefore we use Quaternion.Lerp here.
-        //Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turretStat.turnSpeed).eulerAngles;
-        //only rotate Y-axis
-        //partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        if(attackTarget == player) //DEBUG
+        {
+            attackTarget = null;
+            UpdateEnemyTargets();
+        }
+        if(enemyList.Length < 0) //DEBUG
+        {
+            attackTarget = null;
+            return;
+        }
+        if(attackTarget == null) //DEBUG
+        {
+            return;
+        }
+        if (t >= cd && Vector3.Distance(attackTarget.transform.position, transform.position) <= range)
+        {
+            lastKnownPosition = attackTarget.transform;
+
+            Vector2 dir = (lastKnownPosition.transform.position - transform.position).normalized;
+            GameObject b = Instantiate(enemyBullet_friendly, transform.position, Quaternion.identity);
+            Rigidbody2D rb = b.GetComponent<Rigidbody2D>();
+            rb.velocity = dir * bulletSpeed;
+            b.transform.Rotate(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+
+            t = 0;
+        }
     }
     
     void Update()
     {
+        
+        if (enemyPath.enabled)
+        {
+            if (Vector3.Distance(attackTarget.transform.position, transform.position) <= range)
+            {
+                enemyPath.speed = enemyPath.speed_original * 0.7f;
+            }
+            if (Vector3.Distance(attackTarget.transform.position, transform.position) > range)
+            {
+                enemyPath.speed = enemyPath.speed_original;
+            }
+        }
+        
         t += Time.deltaTime;
-        UpdateTarget_Close();
-        AimAtTarget();
+        t2 += Time.deltaTime;
+        if (t2 >= cd_updateEnemyTarget && state == 1)
+        {
+            // buff this enemy when it is attached to the player fortress
+            cd = cd_initial / 2;
+            range = range_initial * 1.25f;
+            bulletSpeed = bulletSpeed_initial * 1.75f;
+            UpdateEnemyTargets();
+            t2 = 0;
+        }
+        if (state == 0)
+        {
+            AttackPlayer();
+        }
+        else if(state == 1)
+        {
+            AttackEnemies();
+        }  
+    }
+
+    void UpdateEnemyTargets()
+    {
+        //enemyList = GameObject.FindGameObjectsWithTag("Enemy");
+        //if (enemyList.Length == 0) {
+        //    return;
+        //}
+
+        //float distance = Vector3.Distance(transform.position, enemyList[0].transform.position);
+        //GameObject closestEnemy = null;
+        //for (int i = 0; i < enemyList.Length; i++)
+        //{
+        //    if (Vector3.Distance(transform.position, enemyList[i].transform.position) < distance)
+        //    {
+        //        distance = Vector3.Distance(transform.position, enemyList[i].transform.position);
+        //        closestEnemy = enemyList[i];
+        //    }
+        //}
+        //if(enemyList.Length == 1)
+        //{
+        //    closestEnemy = enemyList[0];
+        //}
+        //attackTarget = closestEnemy;
+
+        float shortestDistance = Mathf.Infinity;
+        GameObject nearestTarget = null;
+        enemyList = GameObject.FindGameObjectsWithTag("Enemy");
+        // find out which enemy is the nearest.
+        foreach (GameObject enemy in enemyList)
+        {
+            if (Vector3.Distance(transform.position, enemy.transform.position) <= range)
+            {
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distanceToEnemy < shortestDistance)
+                {
+                    shortestDistance = distanceToEnemy;
+                    nearestTarget = enemy;
+                }
+            }
+        }
+        if (nearestTarget != null && shortestDistance <= range)
+        {
+            //Lock Target
+            if (attackTarget != null && Vector3.Distance(transform.position, attackTarget.transform.position) <= range)
+            {
+                return;
+            }
+            attackTarget = nearestTarget;
+        }
+        else
+        {
+            attackTarget = null;
+        }
     }
 }

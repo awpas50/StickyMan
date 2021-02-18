@@ -14,10 +14,14 @@ public class FortressSlot : MonoBehaviour
                 other.gameObject.GetComponent<ObjectID>().attracted = true;
                 other.gameObject.GetComponent<ObjectID>().followingSlot = gameObject;
                 other.gameObject.GetComponent<Collider2D>().isTrigger = true;
+                //other.gameObject.AddComponent<ObjectStat>();
 
-                if(other.gameObject.GetComponent<ObjectID>().ID == 2)
+                if (other.gameObject.GetComponent<ObjectID>().ID == 2)
                 {
+                    other.gameObject.tag = "FortressObject";
                     other.gameObject.GetComponent<EnemyPath>().enabled = false;
+                    other.gameObject.GetComponent<EnemyBehaviour>().enabled = true;
+                    other.gameObject.GetComponent<EnemyBehaviour>().state = 1; // ally
                 }
                 // 9 = FortressObject
                 other.gameObject.layer = 9;
