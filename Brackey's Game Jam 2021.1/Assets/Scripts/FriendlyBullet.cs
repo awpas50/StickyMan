@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class FriendlyBullet : MonoBehaviour
 {
+    [HideInInspector] public GameObject enemyRef;
+    private int damage;
     public GameObject hitEffect;
+
+    private void Start()
+    {
+        damage = enemyRef.GetComponent<EnemyBehaviour>().damage_hostileMode;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -29,7 +36,7 @@ public class FriendlyBullet : MonoBehaviour
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 1) // == wall
         {
-            other.gameObject.GetComponent<ObjectStat>().HP -= GetComponent<EnemyBehaviour>().damage_allyMode;
+            other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
                 Destroy(other.gameObject);
@@ -37,7 +44,7 @@ public class FriendlyBullet : MonoBehaviour
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 2) // == enemy
         {
-            other.gameObject.GetComponent<ObjectStat>().HP -= GetComponent<EnemyBehaviour>().damage_allyMode;
+            other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
                 Destroy(other.gameObject);

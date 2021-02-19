@@ -18,20 +18,30 @@ public class ObjectID : MonoBehaviour
     private SpriteRenderer label;
     public void Start()
     {
-        label = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        if(transform.childCount > 0)
+        {
+            label = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        }
     }
 
     private void Update()
     {
         if(attractable && !attracted)
         {
-            label.enabled = true;
+            if(label)
+            {
+                label.enabled = true;
+            }
+            
         }
         if(attracted)
         {
             if(!positionSetUp)
             {
-                label.enabled = false;
+                if (label)
+                {
+                    label.enabled = false;
+                }
                 transform.parent = followingSlot.transform;
                 transform.localPosition = new Vector3(0, 0, 0);
                 positionSetUp = true;

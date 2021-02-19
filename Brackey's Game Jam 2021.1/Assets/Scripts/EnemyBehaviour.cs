@@ -44,6 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
 
             Vector2 dir = (lastKnownPosition.transform.position - transform.position).normalized;
             GameObject b = Instantiate(enemyBullet_hostile, transform.position, Quaternion.identity);
+            b.GetComponent<EnemyBullet>().enemyRef = gameObject;
             Rigidbody2D rb = b.GetComponent<Rigidbody2D>();
             rb.velocity = dir * bulletSpeed;
             b.transform.Rotate(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
@@ -70,10 +71,9 @@ public class EnemyBehaviour : MonoBehaviour
         }
         if (t >= cd && Vector3.Distance(attackTarget.transform.position, transform.position) <= range)
         {
-            lastKnownPosition = attackTarget.transform;
-
-            Vector2 dir = (lastKnownPosition.transform.position - transform.position).normalized;
+            Vector2 dir = (attackTarget.transform.position - transform.position).normalized;
             GameObject b = Instantiate(enemyBullet_friendly, transform.position, Quaternion.identity);
+            b.GetComponent<FriendlyBullet>().enemyRef = gameObject;
             Rigidbody2D rb = b.GetComponent<Rigidbody2D>();
             rb.velocity = dir * bulletSpeed;
             b.transform.Rotate(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
@@ -87,6 +87,10 @@ public class EnemyBehaviour : MonoBehaviour
         
         if (enemyPath.enabled)
         {
+            if(attackTarget == null)
+            {
+                return;
+            }
             if (Vector3.Distance(attackTarget.transform.position, transform.position) <= range)
             {
                 enemyPath.speed = enemyPath.speed_original * 0.7f;

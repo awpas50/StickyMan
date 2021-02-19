@@ -233,7 +233,7 @@ MonoBehaviour:
   pathToFollow: []
   target: {fileID: 0}
   index: 0
-  speed: 4
+  speed: 2
   speed_original: 0
 --- !u!114 &-2474152037049391688
 MonoBehaviour:
@@ -256,7 +256,9 @@ MonoBehaviour:
     type: 3}
   bulletSpeed_initial: 5
   range_initial: 10
-  cd_initial: 1
+  damage_hostileMode: 2
+  damage_allyMode: 2
+  cd_initial: 2.2
 --- !u!114 &2809953684095774043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,4 +287,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6024869db1f7afc4b8943c8495dcb17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 20
+  HP: 18

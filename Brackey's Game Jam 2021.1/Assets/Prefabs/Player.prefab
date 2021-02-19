@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1097aa3f4457ef846a5cfa19c85b1c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 20
+  HP: 30
   carriedObject: 0
 --- !u!114 &7407771836853007378
 MonoBehaviour:
@@ -161,7 +161,7 @@ MonoBehaviour:
   firePoint: {fileID: 7407771835904523415}
   bullet: {fileID: 3445206519864654194, guid: 9978f423f76d8e046b62f540a8635ae3, type: 3}
   bulletSpeed: 20
-  shootingSpeedPerSecond: 0.25
+  shootingSpeedPerSecond: 4
 --- !u!50 &7407771836853007380
 Rigidbody2D:
   serializedVersion: 4

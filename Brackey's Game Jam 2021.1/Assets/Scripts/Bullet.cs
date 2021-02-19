@@ -64,6 +64,15 @@ public class Bullet : MonoBehaviour
             other.gameObject.GetComponent<EnemyBehaviour>().enabled = false;
             other.gameObject.GetComponent<EnemyPath>().enabled = false;
         }
+        if (other.gameObject.GetComponent<ObjectID>().ID == 3) // == shield
+        {
+            if (hitEffect)
+            {
+                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                Destroy(effect, 5f);
+            }
+            Destroy(gameObject, 0.03f);
+        }
         Destroy(gameObject, 0.03f);
     }
 }
