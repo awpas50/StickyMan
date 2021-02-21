@@ -14,7 +14,16 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI waveText;
+    public TextMeshProUGUI lifeText;
 
+    public GameObject teleportPoint1;
+    public GameObject teleportPoint2;
+    
+    private float respawnTimer = 0;
+    public float waitTime;
+
+    private bool dead = false;
+    private bool respawnTrigger = false;
     void Awake()
     {
         //debug
@@ -35,5 +44,26 @@ public class GameManager : MonoBehaviour
     {
         playerHealthText.text = "Player HP: " + player.GetComponent<PlayerStat>().HP.ToString();
         waveText.text = "Wave: " + waves.ToString();
+        lifeText.text = "Life: " + live.ToString();
+
+        if (player.GetComponent<PlayerStat>().HP <= 0)
+        {
+            dead = true;
+        }
+        if(dead)
+        {
+            respawnTimer += Time.deltaTime;
+            if(respawnTimer < waitTime)
+            {
+                player.transform.position = teleportPoint1.transform.position;
+                player.GetComponent<PlayerStat>().HP = 30;
+            }
+            if (respawnTimer >= waitTime)
+            {
+                respawnTimer = 0;
+                player.transform.position = teleportPoint2.transform.position;
+                dead = false;
+            }
+        }
     }
 }

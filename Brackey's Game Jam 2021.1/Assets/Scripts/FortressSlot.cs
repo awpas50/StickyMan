@@ -37,5 +37,17 @@ public class FortressSlot : MonoBehaviour
         {
             hasAttached = false;
         }
+        else
+        {
+            hasAttached = true;
+        }
+        if(hasAttached)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+        }
+        if (!hasAttached)
+        {
+            GetComponent<SpriteRenderer>().enabled = true;
+        }
     }
 }

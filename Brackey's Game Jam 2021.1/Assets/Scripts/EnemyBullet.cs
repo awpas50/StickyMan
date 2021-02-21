@@ -27,10 +27,10 @@ public class EnemyBullet : MonoBehaviour
         if (other.gameObject.GetComponent<ObjectID>().ID == 0) // == player
         {
             other.gameObject.GetComponent<PlayerStat>().HP -= damage;
-            if (other.gameObject.GetComponent<PlayerStat>().HP <= 0)
-            {
-                Destroy(other.gameObject);
-            }
+            //if (other.gameObject.GetComponent<PlayerStat>().HP <= 0)
+            //{
+            //    Destroy(other.gameObject);
+            //}
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 1) // == wall
         {

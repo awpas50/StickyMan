@@ -32,8 +32,8 @@ public class EnemyPath : MonoBehaviour
             // reached the end
             if(index >= pathToFollow.Count - 1)
             {
-                Destroy(gameObject, 0.1f);
                 GameManager.i.live -= 1;
+                Destroy(gameObject, 0.1f);
                 return;
             }
             index++;

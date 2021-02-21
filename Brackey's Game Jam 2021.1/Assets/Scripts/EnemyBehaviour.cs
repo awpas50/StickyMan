@@ -119,6 +119,14 @@ public class EnemyBehaviour : MonoBehaviour
         else if(state == 1)
         {
             AttackEnemies();
+            if (attackTarget == null)
+            {
+                return;
+            }
+            if (attackTarget.tag != "Enemy")
+            {
+                attackTarget = null;
+            }
         }  
     }
 
@@ -160,6 +168,10 @@ public class EnemyBehaviour : MonoBehaviour
                     nearestTarget = enemy;
                 }
             }
+        }
+        if(nearestTarget.tag != "Enemy")
+        {
+            attackTarget = null;
         }
         if (nearestTarget != null && shortestDistance <= range)
         {
