@@ -14,7 +14,9 @@ public class EnemyBullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(!other.gameObject.GetComponent<ObjectID>())
+        int seed = Random.Range(0, 2);
+
+        if (!other.gameObject.GetComponent<ObjectID>())
         {
             return;
         }
@@ -37,6 +39,10 @@ public class EnemyBullet : MonoBehaviour
             other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
+                if (seed == 0)
+                    AudioManager.instance.Play(SoundList.Dead1);
+                else if (seed == 1)
+                    AudioManager.instance.Play(SoundList.Dead2);
                 Destroy(other.gameObject);
             }
         }
@@ -45,6 +51,10 @@ public class EnemyBullet : MonoBehaviour
             other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
+                if (seed == 0)
+                    AudioManager.instance.Play(SoundList.Dead1);
+                else if (seed == 1)
+                    AudioManager.instance.Play(SoundList.Dead2);
                 Destroy(other.gameObject);
             }
         }

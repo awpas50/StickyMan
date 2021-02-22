@@ -38,6 +38,8 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        int seed = Random.Range(0, 2);
+
         if (!other.gameObject.GetComponent<ObjectID>())
         {
             return;
@@ -56,11 +58,23 @@ public class Bullet : MonoBehaviour
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 1) // == wall
         {
+            if (seed == 0)
+                AudioManager.instance.Play(SoundList.PlayerBulletHit1);
+            else if (seed == 1)
+                AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+
             other.gameObject.GetComponent<ObjectID>().attractable = true;
+            other.gameObject.tag = "FortressObject";
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 2) // == enemy
         {
+            if (seed == 0)
+                AudioManager.instance.Play(SoundList.PlayerBulletHit1);
+            else if (seed == 1)
+                AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+
             other.gameObject.GetComponent<ObjectID>().attractable = true;
+            other.gameObject.tag = "FortressObject";
             other.gameObject.GetComponent<EnemyBehaviour>().enabled = false;
             other.gameObject.GetComponent<EnemyPath>().enabled = false;
         }

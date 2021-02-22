@@ -11,6 +11,7 @@ public class EnemyPath : MonoBehaviour
     public int index = 0;
     public float speed;
     [HideInInspector] public float speed_original;
+    private bool deductedLives = false;
     void Start()
     {
         speed_original = speed;
@@ -32,7 +33,11 @@ public class EnemyPath : MonoBehaviour
             // reached the end
             if(index >= pathToFollow.Count - 1)
             {
-                GameManager.i.live -= 1;
+                if(!deductedLives)
+                {
+                    GameManager.i.live -= 1;
+                    deductedLives = true;
+                }
                 Destroy(gameObject, 0.1f);
                 return;
             }

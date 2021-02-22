@@ -15,6 +15,8 @@ public class FriendlyBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        int seed = Random.Range(0, 2);
+
         if (!other.gameObject.GetComponent<ObjectID>())
         {
             return;
@@ -39,14 +41,23 @@ public class FriendlyBullet : MonoBehaviour
             other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
+                if (seed == 0)
+                    AudioManager.instance.Play(SoundList.Dead1);
+                else if (seed == 1)
+                    AudioManager.instance.Play(SoundList.Dead2);
                 Destroy(other.gameObject);
             }
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 2) // == enemy
         {
+
             other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
+                if (seed == 0)
+                    AudioManager.instance.Play(SoundList.Dead1);
+                else if (seed == 1)
+                    AudioManager.instance.Play(SoundList.Dead2);
                 Destroy(other.gameObject);
             }
         }

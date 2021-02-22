@@ -46,7 +46,6 @@ public class ObjectID : MonoBehaviour
                 transform.localPosition = new Vector3(0, 0, 0);
                 positionSetUp = true;
             }
-            
         }
     }
 }

@@ -5,6 +5,7 @@ using TMPro;
 
 public class WaveSpawner : MonoBehaviour
 {
+    public float preparingTime = 12f;
     public Wave[] waves;
     public Transform spawnPoint;
     public float timeBetweenWaves;
@@ -22,7 +23,7 @@ public class WaveSpawner : MonoBehaviour
     }
     IEnumerator SpawnEnemies()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(preparingTime);
         startCountDown = true;
         // [i]: number of waves
         // [j]: determine which type of enemy to spawn
@@ -44,15 +45,15 @@ public class WaveSpawner : MonoBehaviour
                     yield return new WaitForSeconds(waves[i].timeBetweenEnemies);
                 }
                 yield return new WaitForSeconds(timeBetweenWaves);
-                if (GameManager.i.waves == GameManager.i.TotalWave)
-                {
-                    GameManager.i.waves = GameManager.i.TotalWave;
-                    //countDownText.enabled = false;
-                }
-                else if (!GameManager.gameEnded)
-                {
-                    GameManager.i.waves += 1;
-                }
+                //if (GameManager.i.waves == GameManager.i.TotalWave)
+                //{
+                //    GameManager.i.waves = GameManager.i.TotalWave;
+                //    //countDownText.enabled = false;
+                //}
+                //else if (!GameManager.gameEnded)
+                //{
+                //    GameManager.i.waves += 1;
+                //}
             }
         }
     }

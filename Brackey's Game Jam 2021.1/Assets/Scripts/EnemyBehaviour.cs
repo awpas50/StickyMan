@@ -40,6 +40,12 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(t >= cd && Vector3.Distance(attackTarget.transform.position, transform.position) <= range)
         {
+            int seed = Random.Range(0, 2);
+            if (seed == 0)
+                AudioManager.instance.Play(SoundList.EnemyShoot1);
+            else if (seed == 1)
+                AudioManager.instance.Play(SoundList.EnemyShoot2);
+
             lastKnownPosition = attackTarget.transform;
 
             Vector2 dir = (lastKnownPosition.transform.position - transform.position).normalized;
@@ -71,6 +77,12 @@ public class EnemyBehaviour : MonoBehaviour
         }
         if (t >= cd && Vector3.Distance(attackTarget.transform.position, transform.position) <= range)
         {
+            int seed = Random.Range(0, 2);
+            if (seed == 0)
+                AudioManager.instance.Play(SoundList.EnemyShoot1);
+            else if (seed == 1)
+                AudioManager.instance.Play(SoundList.EnemyShoot2);
+
             Vector2 dir = (attackTarget.transform.position - transform.position).normalized;
             GameObject b = Instantiate(enemyBullet_friendly, transform.position, Quaternion.identity);
             b.GetComponent<FriendlyBullet>().enemyRef = gameObject;
@@ -106,8 +118,8 @@ public class EnemyBehaviour : MonoBehaviour
         if (t2 >= cd_updateEnemyTarget && state == 1)
         {
             // buff this enemy when it is attached to the player fortress
-            cd = cd_initial / 2;
-            range = range_initial * 1.25f;
+            cd = cd_initial / 1.5f;
+            range = range_initial * 1f;
             bulletSpeed = bulletSpeed_initial * 1.75f;
             UpdateEnemyTargets();
             t2 = 0;
@@ -169,17 +181,17 @@ public class EnemyBehaviour : MonoBehaviour
                 }
             }
         }
-        if(nearestTarget.tag != "Enemy")
+        if(nearestTarget && nearestTarget.tag != "Enemy")
         {
             attackTarget = null;
         }
         if (nearestTarget != null && shortestDistance <= range)
         {
             //Lock Target
-            if (attackTarget != null && Vector3.Distance(transform.position, attackTarget.transform.position) <= range)
-            {
-                return;
-            }
+            //if (attackTarget != null && Vector3.Distance(transform.position, attackTarget.transform.position) <= range)
+            //{
+            //    return;
+            //}
             attackTarget = nearestTarget;
         }
         else
