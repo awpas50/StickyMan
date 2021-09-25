@@ -163,6 +163,8 @@ MonoBehaviour:
   bulletSpeed: 20
   shootingSpeedPerSecond: 0.2
   playerSprite: {fileID: 7407771836853007376}
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
+  noBulletColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
 --- !u!50 &7407771836853007380
 Rigidbody2D:
   serializedVersion: 4

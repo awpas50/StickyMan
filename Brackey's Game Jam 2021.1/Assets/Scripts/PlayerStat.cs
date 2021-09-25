@@ -7,10 +7,12 @@ public class PlayerStat : MonoBehaviour
     public int HP = 20;
     public int carriedObject;
     private GameObject[] allFortressSlot;
+    private GameObject playerFortress;
 
     private void Start()
     {
         allFortressSlot = GameObject.FindGameObjectsWithTag("FortressSlot");
+        playerFortress = GameObject.FindGameObjectWithTag("PlayerFortress");
     }
 
     private void Update()

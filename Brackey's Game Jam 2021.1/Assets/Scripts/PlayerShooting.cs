@@ -69,7 +69,7 @@ public class PlayerShooting : MonoBehaviour
 
     IEnumerator PlaySoundAfterDelay()
     {
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(5.5f);
         AudioManager.instance.Play(SoundList.Charged);
         StopCoroutine(PlaySoundAfterDelay());
     }

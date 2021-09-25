@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI lifeText;
-    public GameObject beginning_panel;
+    //public GameObject beginning_panel;
     public GameObject death_panel;
     public GameObject win_panel;
     public GameObject lose_panel;
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<PlayerShooting>().enabled = false;
         }
-        beginning_panel.SetActive(true);
+        //beginning_panel.SetActive(true);
         win_panel.SetActive(false);
         lose_panel.SetActive(false);
         StartCoroutine(CountWaves());
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         t += Time.deltaTime;
         if(t >= 12)
         {
-            beginning_panel.SetActive(false);
+            //beginning_panel.SetActive(false);
         }
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         playerHealthText.text = "HP " + player.GetComponent<PlayerStat>().HP.ToString();

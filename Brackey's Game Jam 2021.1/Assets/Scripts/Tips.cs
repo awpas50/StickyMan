@@ -16,7 +16,7 @@ public class Tips : MonoBehaviour
         if(t <= 12)
         {
             title.text = "Tips";
-            info.text = "You are a sticky man. YOU got one weapon with 7 second cd, but you can literally shoot anything. i repeat, anthing.";
+            info.text = "You are a sticky man. YOU got one weapon with long cd, but you can literally shoot anything. i repeat, anthing.";
         }
         else if(t >= 12 && GameManager.i.waves == 1)
         {
