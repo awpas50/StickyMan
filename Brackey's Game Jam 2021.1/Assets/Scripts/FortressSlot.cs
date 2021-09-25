@@ -14,7 +14,7 @@ public class FortressSlot : MonoBehaviour
                 AudioManager.instance.Play(SoundList.PickUp);
                 other.gameObject.GetComponent<ObjectID>().attracted = true;
                 other.gameObject.GetComponent<ObjectID>().followingSlot = gameObject;
-                other.gameObject.GetComponent<SpriteRenderer>().sortingOrder += 10;
+                other.gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder += 10;
                 other.gameObject.GetComponent<Collider2D>().isTrigger = true;
                 //other.gameObject.AddComponent<ObjectStat>();
 
