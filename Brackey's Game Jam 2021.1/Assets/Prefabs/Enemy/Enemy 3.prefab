@@ -186,7 +186,7 @@ MonoBehaviour:
   pathToFollow: []
   target: {fileID: 0}
   index: 0
-  speed: 4
+  speed: 3.5
   speed_original: 0
 --- !u!114 &-2474152037049391688
 MonoBehaviour:
