@@ -49,7 +49,7 @@ MonoBehaviour:
     soundList: 0
     source: {fileID: 0}
     originalVolume: 0
-    volume: 0.5
+    volume: 0.2
     pitch: 1
     reverbZoneMix: 1
   - clip: {fileID: 8300000, guid: c367ef6be07cc6b4d827fe919dca94f1, type: 3}

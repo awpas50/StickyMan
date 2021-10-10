@@ -97,6 +97,9 @@ GameObject:
   - component: {fileID: -2474152037049391688}
   - component: {fileID: 2809953684095774043}
   - component: {fileID: 7147997635361110166}
+  - component: {fileID: 8487162143619465765}
+  - component: {fileID: -5994210970866646924}
+  - component: {fileID: 4813226400797868301}
   m_Layer: 11
   m_Name: Enemy 5
   m_TagString: Enemy
@@ -288,3 +291,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 60
+--- !u!114 &8487162143619465765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809953684095774040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7797a475d53114bb427d301f7eb13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freezeBarHealth: 0
+  freezeTimer: 0
+--- !u!114 &-5994210970866646924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809953684095774040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0479f66638acaf544b251cf2ee229374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectFreezeState: {fileID: 0}
+  freezeBarUI: {fileID: 0}
+  freezeBarGrey: {fileID: 0}
+  freezeBarCyan: {fileID: 0}
+--- !u!114 &4813226400797868301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809953684095774040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720b53eb63a9e264f831ddfcdac84cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 0}

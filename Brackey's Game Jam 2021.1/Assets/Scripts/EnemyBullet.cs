@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     [HideInInspector] public GameObject enemyRef;
-    private int damage;
+    private float damage;
     public GameObject hitEffect;
 
     private void Start()
@@ -29,6 +29,7 @@ public class EnemyBullet : MonoBehaviour
         if (other.gameObject.GetComponent<ObjectID>().ID == 0) // == player
         {
             other.gameObject.GetComponent<PlayerStat>().HP -= damage;
+            other.gameObject.GetComponent<PlayerHealthBar>().playerUIAnim.SetTrigger("Shake");
             //if (other.gameObject.GetComponent<PlayerStat>().HP <= 0)
             //{
             //    Destroy(other.gameObject);

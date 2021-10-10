@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ObjectStat : MonoBehaviour
 {
-    private int HP_initial;
-    public int HP = 10;
+    private float HP_initial;
+    public float HP = 10;
 
     private void Start()
     {
         HP_initial = HP;
     }
 
-    public int GetInitialHP()
+    public float GetInitialHP()
     {
         return HP_initial;
     }

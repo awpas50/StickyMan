@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
             if (respawnTimer < waitTime)
             {
                 player.transform.position = teleportPoint1.transform.position;
-                player.GetComponent<PlayerStat>().HP = 30;
+                player.GetComponent<PlayerStat>().HP = player.GetComponent<PlayerStat>().GetInitialHP();
             }
             if (respawnTimer >= waitTime)
             {

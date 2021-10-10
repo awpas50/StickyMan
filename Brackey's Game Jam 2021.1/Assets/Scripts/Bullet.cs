@@ -58,25 +58,27 @@ public class Bullet : MonoBehaviour
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 1) // == wall
         {
-            if (seed == 0)
-                AudioManager.instance.Play(SoundList.PlayerBulletHit1);
-            else if (seed == 1)
-                AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+            //if (seed == 0)
+            //    AudioManager.instance.Play(SoundList.PlayerBulletHit1);
+            //else if (seed == 1)
+            //    AudioManager.instance.Play(SoundList.PlayerBulletHit2);
 
-            other.gameObject.GetComponent<ObjectID>().attractable = true;
-            other.gameObject.tag = "FortressObject";
+            other.gameObject.GetComponent<ObjectFreezeState>().freezeTimer -= other.gameObject.GetComponent<ObjectFreezeState>().TakeFreezeDamage(0.25f);
+            //other.gameObject.GetComponent<ObjectID>().attractable = true;
+            //other.gameObject.tag = "FortressObject";
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 2) // == enemy
         {
-            if (seed == 0)
-                AudioManager.instance.Play(SoundList.PlayerBulletHit1);
-            else if (seed == 1)
-                AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+            //if (seed == 0)
+            //    AudioManager.instance.Play(SoundList.PlayerBulletHit1);
+            //else if (seed == 1)
+            //    AudioManager.instance.Play(SoundList.PlayerBulletHit2);
 
-            other.gameObject.GetComponent<ObjectID>().attractable = true;
-            other.gameObject.tag = "FortressObject";
-            other.gameObject.GetComponent<EnemyBehaviour>().enabled = false;
-            other.gameObject.GetComponent<EnemyPath>().enabled = false;
+            other.gameObject.GetComponent<ObjectFreezeState>().freezeTimer -= other.gameObject.GetComponent<ObjectFreezeState>().TakeFreezeDamage(0.25f);
+            //other.gameObject.GetComponent<ObjectID>().attractable = true;
+            //other.gameObject.tag = "FortressObject";
+            //other.gameObject.GetComponent<EnemyBehaviour>().enabled = false;
+            //other.gameObject.GetComponent<EnemyPath>().enabled = false;
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 3) // == shield
         {

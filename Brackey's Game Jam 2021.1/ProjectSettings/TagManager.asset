@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - FortressObject
   - PlayerFortress
+  - BeamHitPoint
   layers:
   - Default
   - TransparentFX

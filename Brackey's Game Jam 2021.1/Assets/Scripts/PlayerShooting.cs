@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour
 {
     public GameObject firePoint;
+    [SerializeField] private GameObject drone1;
+    [SerializeField] private GameObject drone2;
     public GameObject bullet;
     public float bulletSpeed;
     public float shootingSpeedPerSecond = 0.25f;
@@ -26,10 +28,10 @@ public class PlayerShooting : MonoBehaviour
     private void Update()
     {
         t += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0) && t >= 1 / shootingSpeedPerSecond)
+        if (Input.GetMouseButton(0) && t >= 1 / shootingSpeedPerSecond)
         {
             ResetCooldown();
-            Shoot();
+            StartCoroutine(Shoot());
         }
 
         if(t >= 1 / shootingSpeedPerSecond)
@@ -44,19 +46,55 @@ public class PlayerShooting : MonoBehaviour
         }
         if(canPlaySound)
         {
-            StartCoroutine(PlaySoundAfterDelay());
-            canPlaySound = false;
+            //StartCoroutine(PlaySoundAfterDelay());
+            //canPlaySound = false;
         }
+
+        //Vector3 dir = (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)) - transform.position).normalized;
+        //dir = new Vector3(dir.x, dir.y, 0f);
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        Vector2 direction = new Vector2(
+        mousePosition.x - firePoint.transform.position.x,
+        mousePosition.y - firePoint.transform.position.y
+        );
+
+        firePoint.transform.up = direction;
     }
 
-    void Shoot()
+    IEnumerator Shoot()
     {
         AudioManager.instance.Play(SoundList.PlayerShoot);
-        Vector2 dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-        GameObject b = Instantiate(bullet, firePoint.transform.position, Quaternion.identity);
-        Rigidbody2D rb = b.GetComponent<Rigidbody2D>();
-        rb.velocity = dir * bulletSpeed;
-        b.transform.Rotate(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+
+        Vector3 dir1 = (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)) - drone1.transform.position).normalized;
+        dir1 = new Vector3(dir1.x, dir1.y, 0f);
+
+        Vector3 dir2 = (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)) - drone2.transform.position).normalized;
+        dir2 = new Vector3(dir2.x, dir2.y, 0f);
+
+        GameObject b1 = Instantiate(bullet, drone1.transform.position, Quaternion.identity);
+        Rigidbody2D rb1 = b1.GetComponent<Rigidbody2D>();
+        rb1.velocity = dir1.normalized * bulletSpeed;
+        b1.transform.Rotate(0, 0, Mathf.Atan2(dir1.y, dir1.x) * Mathf.Rad2Deg);
+        yield return new WaitForSeconds(0.02f);
+        GameObject b2 = Instantiate(bullet, drone2.transform.position, Quaternion.identity);
+        Rigidbody2D rb2 = b2.GetComponent<Rigidbody2D>();
+        rb2.velocity = dir2.normalized * bulletSpeed;
+        b2.transform.Rotate(0, 0, Mathf.Atan2(dir2.y, dir2.x) * Mathf.Rad2Deg);
+
+        yield return new WaitForSeconds(0.05f);
+
+        GameObject b1_1 = Instantiate(bullet, drone1.transform.position, Quaternion.identity);
+        Rigidbody2D rb1_1 = b1_1.GetComponent<Rigidbody2D>();
+        rb1_1.velocity = dir1.normalized * bulletSpeed;
+        b1_1.transform.Rotate(0, 0, Mathf.Atan2(dir1.y, dir1.x) * Mathf.Rad2Deg);
+        yield return new WaitForSeconds(0.02f);
+        GameObject b2_1 = Instantiate(bullet, drone2.transform.position, Quaternion.identity);
+        Rigidbody2D rb2_1 = b2_1.GetComponent<Rigidbody2D>();
+        rb2_1.velocity = dir2.normalized * bulletSpeed;
+        b2_1.transform.Rotate(0, 0, Mathf.Atan2(dir2.y, dir2.x) * Mathf.Rad2Deg);
+
+        //firePoint.transform.Rotate(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
         // Impulse = instant force
         //rb.AddForce(firePoint.transform.up * bulletSpeed, ForceMode2D.Impulse);
     }
@@ -64,13 +102,13 @@ public class PlayerShooting : MonoBehaviour
     void ResetCooldown()
     {
         t = 0;
-        canPlaySound = true;
+        //canPlaySound = true;
     }
 
-    IEnumerator PlaySoundAfterDelay()
-    {
-        yield return new WaitForSeconds(5.5f);
-        AudioManager.instance.Play(SoundList.Charged);
-        StopCoroutine(PlaySoundAfterDelay());
-    }
+    //IEnumerator PlaySoundAfterDelay()
+    //{
+    //    yield return new WaitForSeconds(5.5f);
+    //    AudioManager.instance.Play(SoundList.Charged);
+    //    StopCoroutine(PlaySoundAfterDelay());
+    //}
 }

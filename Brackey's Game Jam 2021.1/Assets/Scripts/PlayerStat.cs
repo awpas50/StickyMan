@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerStat : MonoBehaviour
 {
-    public int HP = 20;
+    private float HP_initial;
+    public float HP = 20;
     public int carriedObject;
     private GameObject[] allFortressSlot;
     private GameObject playerFortress;
 
     private void Start()
     {
+        HP_initial = HP;
+
         allFortressSlot = GameObject.FindGameObjectsWithTag("FortressSlot");
         playerFortress = GameObject.FindGameObjectWithTag("PlayerFortress");
     }
@@ -25,5 +28,10 @@ public class PlayerStat : MonoBehaviour
                 carriedObject += 1;
             }
         }
+    }
+
+    public float GetInitialHP()
+    {
+        return HP_initial;
     }
 }
