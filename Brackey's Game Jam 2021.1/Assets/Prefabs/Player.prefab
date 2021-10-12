@@ -89,7 +89,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129601536691525890}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -268,7 +268,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2163176686983010955}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -485,11 +485,13 @@ GameObject:
   - component: {fileID: 7407771836853007378}
   - component: {fileID: 7407771836853007381}
   - component: {fileID: 1982695155}
+  - component: {fileID: 6678020879472787017}
   - component: {fileID: 2554511210582558870}
   - component: {fileID: 8064221227588172647}
   - component: {fileID: 7407771836853007380}
   - component: {fileID: 7407771836853007379}
   - component: {fileID: 7103590318808862953}
+  - component: {fileID: 4737315191978902355}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -603,15 +605,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c559f6a5e1e480245950abda339d9982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energy: 5
+  energyRestoreTime: 2.2
+  energyRechargeSpeed: 2.5
   firePoint: {fileID: 7407771835904523415}
   drone1: {fileID: 129601536691525890}
   drone2: {fileID: 2163176686983010955}
   bullet: {fileID: 3445206519864654194, guid: 9978f423f76d8e046b62f540a8635ae3, type: 3}
   bulletSpeed: 12
-  shootingSpeedPerSecond: 0.85
+  shootingSpeedPerSecond: 1.6
   playerSprite: {fileID: 7407771836853007376}
-  originalColor: {r: 1, g: 1, b: 1, a: 0}
-  noBulletColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 0}
 --- !u!114 &1982695155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,6 +633,20 @@ MonoBehaviour:
   red: {r: 0.9528302, g: 0.23820755, b: 0.23820755, a: 1}
   yellow: {r: 1, g: 0.83403885, b: 0.109803915, a: 1}
   green: {r: 0.16078432, g: 0.56078434, b: 0.4392157, a: 1}
+--- !u!114 &6678020879472787017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407771836853007471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9565fb7b956b3d429b8dc997fb76a31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerShooting: {fileID: 7407771836853007381}
+  energyBarBlue: {fileID: 0}
 --- !u!114 &2554511210582558870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,6 +730,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &4737315191978902355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407771836853007471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6706b9b6f2e68a04fa1e128ce6be9736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: bc209f3674552e54cbedb9ad0513a3ca, type: 2}
+  duration: 0.075
+  spriteRenderer: {fileID: 0}
 --- !u!1 &9056614948001362569
 GameObject:
   m_ObjectHideFlags: 0

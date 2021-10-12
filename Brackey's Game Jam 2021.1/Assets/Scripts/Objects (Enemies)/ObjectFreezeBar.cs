@@ -36,11 +36,15 @@ public class ObjectFreezeBar : MonoBehaviour
     }
     public void FreezeUIVisibility()
     {
-        if (objectFreezeState.freezeTimer >= objectFreezeState.GetFreezeBarHealth())
+        if(GetComponent<ObjectID>().attracted || GetComponent<ObjectID>().attractable)
         {
             freezeBarUI.SetActive(false);
         }
-        else
+        else if (objectFreezeState.freezeTimer >= objectFreezeState.GetFreezeBarHealth())
+        {
+            freezeBarUI.SetActive(false);
+        }
+        else if (objectFreezeState.freezeTimer < objectFreezeState.GetFreezeBarHealth())
         {
             freezeBarUI.SetActive(true);
         }

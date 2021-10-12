@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+    [Header("Energy")]
+    public float energy;
+    [SerializeField] private float energyRestoreTime = 1.8f;
+    [SerializeField] private float energyRechargeSpeed = 2.5f;
+    private float energy_initial;
+    private float energyRestoreTimer;
+    
+
     public GameObject firePoint;
     [SerializeField] private GameObject drone1;
     [SerializeField] private GameObject drone2;
@@ -14,21 +22,24 @@ public class PlayerShooting : MonoBehaviour
     private float t;
 
     public SpriteRenderer playerSprite;
-    public Color originalColor;
-    public Color noBulletColor;
+    //public Color originalColor;
+    //public Color noBulletColor;
 
 
     private bool soundEffectTriggered = false;
     private bool canPlaySound = false;
     private void Start()
     {
-        originalColor = playerSprite.color;
+        //originalColor = playerSprite.color;
+        energyRestoreTimer = energyRestoreTime;
+        energy_initial = energy;
         t = 1 / shootingSpeedPerSecond;
     }
     private void Update()
     {
+        RestoreEnergy();
         t += Time.deltaTime;
-        if (Input.GetMouseButton(0) && t >= 1 / shootingSpeedPerSecond)
+        if (Input.GetMouseButton(0) && t >= 1 / shootingSpeedPerSecond && energy >= 1)
         {
             ResetCooldown();
             StartCoroutine(Shoot());
@@ -36,18 +47,13 @@ public class PlayerShooting : MonoBehaviour
 
         if(t >= 1 / shootingSpeedPerSecond)
         {
-            playerSprite.color = originalColor;
+            //playerSprite.color = originalColor;
             
         }
         if (t < 1 / shootingSpeedPerSecond)
         {
             //grey
-            playerSprite.color = noBulletColor;
-        }
-        if(canPlaySound)
-        {
-            //StartCoroutine(PlaySoundAfterDelay());
-            //canPlaySound = false;
+            //playerSprite.color = noBulletColor;
         }
 
         //Vector3 dir = (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)) - transform.position).normalized;
@@ -64,7 +70,7 @@ public class PlayerShooting : MonoBehaviour
 
     IEnumerator Shoot()
     {
-        AudioManager.instance.Play(SoundList.PlayerShoot);
+        energyRestoreTimer = 0f;
 
         Vector3 dir1 = (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)) - drone1.transform.position).normalized;
         dir1 = new Vector3(dir1.x, dir1.y, 0f);
@@ -76,23 +82,32 @@ public class PlayerShooting : MonoBehaviour
         Rigidbody2D rb1 = b1.GetComponent<Rigidbody2D>();
         rb1.velocity = dir1.normalized * bulletSpeed;
         b1.transform.Rotate(0, 0, Mathf.Atan2(dir1.y, dir1.x) * Mathf.Rad2Deg);
-        yield return new WaitForSeconds(0.02f);
+        AudioManager.instance.Play(SoundList.PlayerShoot);
+        energy -= 0.25f;
+        yield return new WaitForSeconds(0.07f);
+
         GameObject b2 = Instantiate(bullet, drone2.transform.position, Quaternion.identity);
         Rigidbody2D rb2 = b2.GetComponent<Rigidbody2D>();
         rb2.velocity = dir2.normalized * bulletSpeed;
         b2.transform.Rotate(0, 0, Mathf.Atan2(dir2.y, dir2.x) * Mathf.Rad2Deg);
-
-        yield return new WaitForSeconds(0.05f);
+        AudioManager.instance.Play(SoundList.PlayerShoot);
+        energy -= 0.25f;
+        yield return new WaitForSeconds(0.07f);
 
         GameObject b1_1 = Instantiate(bullet, drone1.transform.position, Quaternion.identity);
         Rigidbody2D rb1_1 = b1_1.GetComponent<Rigidbody2D>();
         rb1_1.velocity = dir1.normalized * bulletSpeed;
         b1_1.transform.Rotate(0, 0, Mathf.Atan2(dir1.y, dir1.x) * Mathf.Rad2Deg);
-        yield return new WaitForSeconds(0.02f);
+        AudioManager.instance.Play(SoundList.PlayerShoot);
+        energy -= 0.25f;
+        yield return new WaitForSeconds(0.07f);
+
         GameObject b2_1 = Instantiate(bullet, drone2.transform.position, Quaternion.identity);
         Rigidbody2D rb2_1 = b2_1.GetComponent<Rigidbody2D>();
         rb2_1.velocity = dir2.normalized * bulletSpeed;
         b2_1.transform.Rotate(0, 0, Mathf.Atan2(dir2.y, dir2.x) * Mathf.Rad2Deg);
+        AudioManager.instance.Play(SoundList.PlayerShoot);
+        energy -= 0.25f;
 
         //firePoint.transform.Rotate(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
         // Impulse = instant force
@@ -111,4 +126,27 @@ public class PlayerShooting : MonoBehaviour
     //    AudioManager.instance.Play(SoundList.Charged);
     //    StopCoroutine(PlaySoundAfterDelay());
     //}
+
+    void RestoreEnergy()
+    {
+        energyRestoreTimer += Time.deltaTime;
+
+        if(energy >= energy_initial)
+        {
+            energy = energy_initial;
+        }
+        if (energyRestoreTimer >= energyRestoreTime)
+        {
+            energy += Time.deltaTime * energyRechargeSpeed;
+        }
+        else
+        {
+            energy += Time.deltaTime * 0f;
+        }
+        
+    }
+    public float GetInitialEnergy()
+    {
+        return energy_initial;
+    }
 }

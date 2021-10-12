@@ -38,56 +38,71 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        int seed = Random.Range(0, 2);
-
-        if (!other.gameObject.GetComponent<ObjectID>())
-        {
-            return;
-            //if (hitEffect)
-            //{
-            //    GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-            //    Destroy(effect, 5f);
-            //}
-            //Destroy(gameObject, 0.03f);
-        }
-
         if (hitEffect)
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-            Destroy(effect, 5f);
+            Destroy(effect, 2f);
         }
+        if (!other.gameObject.GetComponent<ObjectID>())
+        {
+            return;
+        }
+        
+        int seed = Random.Range(0, 2);
+        
         if (other.gameObject.GetComponent<ObjectID>().ID == 1) // == wall
         {
-            //if (seed == 0)
-            //    AudioManager.instance.Play(SoundList.PlayerBulletHit1);
-            //else if (seed == 1)
-            //    AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+            switch (seed)
+            {
+                case 0:
+                    AudioManager.instance.Play(SoundList.PlayerBulletHit1);
+                    break;
+                case 1:
+                    AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+                    break;
+            }
 
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
             other.gameObject.GetComponent<ObjectFreezeState>().freezeTimer -= other.gameObject.GetComponent<ObjectFreezeState>().TakeFreezeDamage(0.25f);
-            //other.gameObject.GetComponent<ObjectID>().attractable = true;
-            //other.gameObject.tag = "FortressObject";
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 2) // == enemy
         {
-            //if (seed == 0)
-            //    AudioManager.instance.Play(SoundList.PlayerBulletHit1);
-            //else if (seed == 1)
-            //    AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+            switch (seed)
+            {
+                case 0:
+                    AudioManager.instance.Play(SoundList.PlayerBulletHit1);
+                    break;
+                case 1:
+                    AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+                    break;
+            }
 
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
             other.gameObject.GetComponent<ObjectFreezeState>().freezeTimer -= other.gameObject.GetComponent<ObjectFreezeState>().TakeFreezeDamage(0.25f);
-            //other.gameObject.GetComponent<ObjectID>().attractable = true;
-            //other.gameObject.tag = "FortressObject";
-            //other.gameObject.GetComponent<EnemyBehaviour>().enabled = false;
-            //other.gameObject.GetComponent<EnemyPath>().enabled = false;
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 3) // == shield
         {
-            if (hitEffect)
+            switch (seed)
             {
-                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-                Destroy(effect, 5f);
+                case 0:
+                    AudioManager.instance.Play(SoundList.PlayerBulletHit1);
+                    break;
+                case 1:
+                    AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+                    break;
             }
-            Destroy(gameObject, 0.03f);
+
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
+
+            other.gameObject.GetComponent<ObjectStat>().HP -= 1;
+            if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
+            {
+                if (seed == 0)
+                    AudioManager.instance.Play(SoundList.Dead1);
+                else if (seed == 1)
+                    AudioManager.instance.Play(SoundList.Dead2);
+                Destroy(other.gameObject);
+            }
         }
         Destroy(gameObject, 0.03f);
     }

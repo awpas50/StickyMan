@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075176816736517565}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2809953684095773351}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: d3a83cf5b7cb0854293751dc5e27fe00, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7453d3864d4a17641a47b7109be9055a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 1081708943480614623}
   - component: {fileID: 4076526240557542806}
   - component: {fileID: -861198352243715115}
+  - component: {fileID: -6594592209299374442}
   m_Layer: 11
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -115,7 +116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2809953684095774040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17, y: -6.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6613337631941359714}
@@ -273,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7797a475d53114bb427d301f7eb13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freezeBarHealth: 2
+  freezeBarHealth: 1.75
   freezeTimer: 0
 --- !u!114 &4076526240557542806
 MonoBehaviour:
@@ -303,6 +304,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720b53eb63a9e264f831ddfcdac84cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6594592209299374442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809953684095774040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6706b9b6f2e68a04fa1e128ce6be9736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: bc209f3674552e54cbedb9ad0513a3ca, type: 2}
+  duration: 0.075
+  spriteRenderer: {fileID: 0}
 --- !u!1 &3192808591620696161
 GameObject:
   m_ObjectHideFlags: 0

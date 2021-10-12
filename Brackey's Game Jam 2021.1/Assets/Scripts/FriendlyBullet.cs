@@ -5,12 +5,12 @@ using UnityEngine;
 public class FriendlyBullet : MonoBehaviour
 {
     [HideInInspector] public GameObject enemyRef;
-    private int damage;
+    private float damage;
     public GameObject hitEffect;
 
     private void Start()
     {
-        damage = enemyRef.GetComponent<EnemyBehaviour>().damage_hostileMode;
+        damage = enemyRef.GetComponent<EnemyBehaviour>().damage_allyMode;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -21,24 +21,23 @@ public class FriendlyBullet : MonoBehaviour
         {
             return;
         }
-        if (other.gameObject.GetComponent<ObjectID>().ID != 0)
-        {
-            if (hitEffect)
-            {
-                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-                Destroy(effect, 5f);
-            }
-            Destroy(gameObject, 0.03f);
-        }
-
         if (hitEffect)
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-            Destroy(effect, 5f);
+            Destroy(effect, 2f);
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 1) // == wall
         {
-            other.gameObject.GetComponent<ObjectStat>().HP -= damage;
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
+            if (!other.gameObject.GetComponent<ObjectID>().attractable)
+            {
+                other.gameObject.GetComponent<ObjectStat>().HP -= damage;
+            }
+            else if (other.gameObject.GetComponent<ObjectID>().attractable)
+            {
+                other.gameObject.GetComponent<ObjectStat>().HP -= damage / 4;
+            }
+
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
                 if (seed == 0)
@@ -50,7 +49,28 @@ public class FriendlyBullet : MonoBehaviour
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 2) // == enemy
         {
-
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
+            if (!other.gameObject.GetComponent<ObjectID>().attractable)
+            {
+                other.gameObject.GetComponent<ObjectStat>().HP -= damage;
+            }
+            else if (other.gameObject.GetComponent<ObjectID>().attractable)
+            {
+                other.gameObject.GetComponent<ObjectStat>().HP -= damage / 4;
+            }
+            
+            if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
+            {
+                if (seed == 0)
+                    AudioManager.instance.Play(SoundList.Dead1);
+                else if (seed == 1)
+                    AudioManager.instance.Play(SoundList.Dead2);
+                Destroy(other.gameObject);
+            }
+        }
+        if (other.gameObject.GetComponent<ObjectID>().ID == 3) // == shield
+        {
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
             other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {

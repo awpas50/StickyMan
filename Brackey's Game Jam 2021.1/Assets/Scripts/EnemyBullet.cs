@@ -24,10 +24,11 @@ public class EnemyBullet : MonoBehaviour
         if (hitEffect)
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-            Destroy(effect, 5f);
+            Destroy(effect, 2f);
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 0) // == player
         {
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
             other.gameObject.GetComponent<PlayerStat>().HP -= damage;
             other.gameObject.GetComponent<PlayerHealthBar>().playerUIAnim.SetTrigger("Shake");
             //if (other.gameObject.GetComponent<PlayerStat>().HP <= 0)
@@ -37,6 +38,7 @@ public class EnemyBullet : MonoBehaviour
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 1) // == wall
         {
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
             other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
@@ -49,6 +51,7 @@ public class EnemyBullet : MonoBehaviour
         }
         if (other.gameObject.GetComponent<ObjectID>().ID == 3 && other.gameObject.layer == 9) // == friendly shield
         {
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
             other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
@@ -61,9 +64,14 @@ public class EnemyBullet : MonoBehaviour
         }
         if (other.gameObject.GetComponent<ObjectID>().attracted) // == fortressObject
         {
+            other.gameObject.GetComponent<ObjectFlash>().Flash();
             other.gameObject.GetComponent<ObjectStat>().HP -= damage;
             if (other.gameObject.GetComponent<ObjectStat>().HP <= 0)
             {
+                if (seed == 0)
+                    AudioManager.instance.Play(SoundList.Dead1);
+                else if (seed == 1)
+                    AudioManager.instance.Play(SoundList.Dead2);
                 Destroy(other.gameObject);
             }
         }

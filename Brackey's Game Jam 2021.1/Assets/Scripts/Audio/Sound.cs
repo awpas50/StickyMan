@@ -6,15 +6,17 @@ using UnityEngine.Audio;
 public enum SoundList
 {
     PlayerShoot,
-    PlayerBulletHit1,
-    PlayerBulletHit2,
+    Freeze1,
+    Freeze2,
     Dead1,
     Dead2,
     EnemyShoot1,
     EnemyShoot2,
     RoundStart,
     PickUp,
-    Charged
+    Charged,
+    PlayerBulletHit1,
+    PlayerBulletHit2
 }
 
 [System.Serializable]

@@ -144,4 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRef: {fileID: 0}
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 8699530640602173508, guid: eb5a0fdd93e393f429b2b4f54d6d92a9,
+    type: 3}

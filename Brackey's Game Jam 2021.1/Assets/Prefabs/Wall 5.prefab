@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -6045998016161711101}
   - component: {fileID: -8519284889467946000}
   - component: {fileID: 290646746395211407}
+  - component: {fileID: 4775582961299614867}
   m_Layer: 0
   m_Name: Wall 5
   m_TagString: Untagged
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6024869db1f7afc4b8943c8495dcb17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 80
+  HP: 120
 --- !u!114 &-6045998016161711101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +169,21 @@ MonoBehaviour:
   freezeBarUI: {fileID: 532321631987221823}
   freezeBarGrey: {fileID: 1139576788924057541}
   freezeBarCyan: {fileID: 1620040111064905380}
+--- !u!114 &4775582961299614867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269787744580401410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6706b9b6f2e68a04fa1e128ce6be9736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: bc209f3674552e54cbedb9ad0513a3ca, type: 2}
+  duration: 0.075
+  spriteRenderer: {fileID: 0}
 --- !u!1 &2764745155512570746
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2764745155512570746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 269787744580401411}
@@ -238,7 +254,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: d3a83cf5b7cb0854293751dc5e27fe00, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7453d3864d4a17641a47b7109be9055a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

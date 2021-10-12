@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     public int state = 0;
+    // ***** Modified by the script 'PlayerFortressFireControl'.
+    public bool automaticFire = false;
     private EnemyPath enemyPath;
     public GameObject[] enemyList;
     public GameObject attackTarget;
@@ -18,8 +20,8 @@ public class EnemyBehaviour : MonoBehaviour
     public float range_initial = 10;
     private float range;
 
-    public int damage_hostileMode = 2;
-    public int damage_allyMode = 2;
+    public float damage_hostileMode = 2;
+    public float damage_allyMode = 2;
     private float t = 0;
     private float t2 = 0;
     public float cd_initial = 1f; // update target position every X sec
@@ -61,7 +63,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     void AttackEnemies()
     {
-        if(attackTarget == player) //DEBUG
+        if(automaticFire == false)
+        {
+            attackTarget = null;
+        }
+        if(attackTarget == player) //DEBUG, not targeting player once it has been freezed.
         {
             attackTarget = null;
             UpdateEnemyTargets();
@@ -105,7 +111,7 @@ public class EnemyBehaviour : MonoBehaviour
             }
             if (Vector3.Distance(attackTarget.transform.position, transform.position) <= range)
             {
-                enemyPath.speed = enemyPath.speed_original * 0.7f;
+                enemyPath.speed = enemyPath.speed_original * 0.65f;
             }
             if (Vector3.Distance(attackTarget.transform.position, transform.position) > range)
             {
@@ -120,7 +126,7 @@ public class EnemyBehaviour : MonoBehaviour
             // buff this enemy when it is attached to the player fortress
             cd = cd_initial / 1.5f;
             range = range_initial * 1f;
-            bulletSpeed = bulletSpeed_initial * 1.75f;
+            bulletSpeed = bulletSpeed_initial * 1.5f;
             UpdateEnemyTargets();
             t2 = 0;
         }
@@ -144,11 +150,46 @@ public class EnemyBehaviour : MonoBehaviour
 
     void UpdateEnemyTargets()
     {
+        if(automaticFire)
+        {
+            float shortestDistance = Mathf.Infinity;
+            GameObject nearestTarget = null;
+            enemyList = GameObject.FindGameObjectsWithTag("Enemy");
+            // find out which enemy is the nearest.
+            foreach (GameObject enemy in enemyList)
+            {
+                if (Vector3.Distance(transform.position, enemy.transform.position) <= range)
+                {
+                    float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                    if (distanceToEnemy < shortestDistance)
+                    {
+                        shortestDistance = distanceToEnemy;
+                        nearestTarget = enemy;
+                    }
+                }
+            }
+            if (nearestTarget && nearestTarget.tag != "Enemy")
+            {
+                attackTarget = null;
+            }
+            if (nearestTarget != null && shortestDistance <= range)
+            {
+                //Lock Target
+                //if (attackTarget != null && Vector3.Distance(transform.position, attackTarget.transform.position) <= range)
+                //{
+                //    return;
+                //}
+                attackTarget = nearestTarget;
+            }
+            else
+            {
+                attackTarget = null;
+            }
+        }
         //enemyList = GameObject.FindGameObjectsWithTag("Enemy");
         //if (enemyList.Length == 0) {
         //    return;
         //}
-
         //float distance = Vector3.Distance(transform.position, enemyList[0].transform.position);
         //GameObject closestEnemy = null;
         //for (int i = 0; i < enemyList.Length; i++)
@@ -164,39 +205,5 @@ public class EnemyBehaviour : MonoBehaviour
         //    closestEnemy = enemyList[0];
         //}
         //attackTarget = closestEnemy;
-
-        float shortestDistance = Mathf.Infinity;
-        GameObject nearestTarget = null;
-        enemyList = GameObject.FindGameObjectsWithTag("Enemy");
-        // find out which enemy is the nearest.
-        foreach (GameObject enemy in enemyList)
-        {
-            if (Vector3.Distance(transform.position, enemy.transform.position) <= range)
-            {
-                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-                if (distanceToEnemy < shortestDistance)
-                {
-                    shortestDistance = distanceToEnemy;
-                    nearestTarget = enemy;
-                }
-            }
-        }
-        if(nearestTarget && nearestTarget.tag != "Enemy")
-        {
-            attackTarget = null;
-        }
-        if (nearestTarget != null && shortestDistance <= range)
-        {
-            //Lock Target
-            //if (attackTarget != null && Vector3.Distance(transform.position, attackTarget.transform.position) <= range)
-            //{
-            //    return;
-            //}
-            attackTarget = nearestTarget;
-        }
-        else
-        {
-            attackTarget = null;
-        }
     }
 }

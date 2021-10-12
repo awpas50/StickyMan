@@ -41,9 +41,9 @@ public class ObjectFreezeState : MonoBehaviour
         if (gameObject.GetComponent<ObjectID>().ID == 1) // == wall
         {
             if (seed == 0)
-                AudioManager.instance.Play(SoundList.PlayerBulletHit1);
+                AudioManager.instance.Play(SoundList.Freeze1);
             else if (seed == 1)
-                AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+                AudioManager.instance.Play(SoundList.Freeze2);
             
             gameObject.GetComponent<ObjectID>().attractable = true;
             gameObject.tag = "FortressObject";
@@ -51,9 +51,9 @@ public class ObjectFreezeState : MonoBehaviour
         if (gameObject.GetComponent<ObjectID>().ID == 2) // == enemy
         {
             if (seed == 0)
-                AudioManager.instance.Play(SoundList.PlayerBulletHit1);
+                AudioManager.instance.Play(SoundList.Freeze1);
             else if (seed == 1)
-                AudioManager.instance.Play(SoundList.PlayerBulletHit2);
+                AudioManager.instance.Play(SoundList.Freeze2);
 
             gameObject.GetComponent<ObjectID>().attractable = true;
             gameObject.tag = "FortressObject";
