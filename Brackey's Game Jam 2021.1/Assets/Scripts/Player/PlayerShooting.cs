@@ -8,6 +8,7 @@ public class PlayerShooting : MonoBehaviour
     public float energy;
     [SerializeField] private float energyRestoreTime = 1.8f;
     [SerializeField] private float energyRechargeSpeed = 2.5f;
+    [SerializeField] private float energyCostPerBullet = 0.25f;
     private float energy_initial;
     private float energyRestoreTimer;
     
@@ -83,7 +84,7 @@ public class PlayerShooting : MonoBehaviour
         rb1.velocity = dir1.normalized * bulletSpeed;
         b1.transform.Rotate(0, 0, Mathf.Atan2(dir1.y, dir1.x) * Mathf.Rad2Deg);
         AudioManager.instance.Play(SoundList.PlayerShoot);
-        energy -= 0.25f;
+        energy -= energyCostPerBullet;
         yield return new WaitForSeconds(0.07f);
 
         GameObject b2 = Instantiate(bullet, drone2.transform.position, Quaternion.identity);
@@ -91,7 +92,7 @@ public class PlayerShooting : MonoBehaviour
         rb2.velocity = dir2.normalized * bulletSpeed;
         b2.transform.Rotate(0, 0, Mathf.Atan2(dir2.y, dir2.x) * Mathf.Rad2Deg);
         AudioManager.instance.Play(SoundList.PlayerShoot);
-        energy -= 0.25f;
+        energy -= energyCostPerBullet;
         yield return new WaitForSeconds(0.07f);
 
         GameObject b1_1 = Instantiate(bullet, drone1.transform.position, Quaternion.identity);
@@ -99,7 +100,7 @@ public class PlayerShooting : MonoBehaviour
         rb1_1.velocity = dir1.normalized * bulletSpeed;
         b1_1.transform.Rotate(0, 0, Mathf.Atan2(dir1.y, dir1.x) * Mathf.Rad2Deg);
         AudioManager.instance.Play(SoundList.PlayerShoot);
-        energy -= 0.25f;
+        energy -= energyCostPerBullet;
         yield return new WaitForSeconds(0.07f);
 
         GameObject b2_1 = Instantiate(bullet, drone2.transform.position, Quaternion.identity);
@@ -107,7 +108,7 @@ public class PlayerShooting : MonoBehaviour
         rb2_1.velocity = dir2.normalized * bulletSpeed;
         b2_1.transform.Rotate(0, 0, Mathf.Atan2(dir2.y, dir2.x) * Mathf.Rad2Deg);
         AudioManager.instance.Play(SoundList.PlayerShoot);
-        energy -= 0.25f;
+        energy -= energyCostPerBullet;
 
         //firePoint.transform.Rotate(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
         // Impulse = instant force

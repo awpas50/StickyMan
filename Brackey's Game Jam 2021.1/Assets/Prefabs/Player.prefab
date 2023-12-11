@@ -606,8 +606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energy: 5
-  energyRestoreTime: 2.2
-  energyRechargeSpeed: 2.5
+  energyRestoreTime: 1.7
+  energyRechargeSpeed: 4
+  energyCostPerBullet: 0.25
   firePoint: {fileID: 7407771835904523415}
   drone1: {fileID: 129601536691525890}
   drone2: {fileID: 2163176686983010955}
